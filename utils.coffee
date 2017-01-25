@@ -4,7 +4,7 @@ exports.strip_name_say = (name) ->
     return name.replace(/\ \(.*\)$/, '')
 
 exports.strip_name = (name) ->
-    return exports.strip_name_say(name.toLowerCase()).replace(/[ -\/]/g, '')
+    return exports.strip_name_say(name.toLowerCase()).replace(/[ -\/']/g, '')
 
 exports.name_to_emoji = (name) ->
     name = ":#{exports.strip_name(name)}:"
@@ -54,3 +54,27 @@ exports.make_link = (url, name) ->
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
     return "<#{url}|#{exports.strip_name_say(name)}>"
+
+exports.expansion_overrides = {
+    'millenniumfalcon': 'yt1300',
+    'slavei': 'firespray31',
+    'rebeltransport': 'gr75mediumtransport',
+    'tantiveiv': 'cr90corvette',
+    'ig2000': 'aggressor',
+    'houndstooth': 'yv666',
+    'imperialraider': 'raiderclasscorvette',
+    'imperialassaultcarrier': 'gozanticlasscruiser',
+    'ghost': 'vcx100',
+    'punishingone': 'jumpmaster5000',
+    'misthunter': 'g1astarfighter',
+    'inquisitorstie': 'tieadvancedprototype',
+    'specialforcestie': 'tiesffighter',
+    'shadowcaster': 'lancerclasspursuitcraft',
+    'sabinestiefighter': 'tiefighter',
+}
+
+exports.expansion_emoji = (name) ->
+    name = exports.strip_name(name.replace(/\ Expansion Pack/, ''))
+    if name of exports.expansion_overrides
+        name = exports.expansion_overrides[name]
+    return ":#{name}:"
